@@ -1,0 +1,6 @@
+<% @shows.each do |show| %>
+  <%= link_to show_path(show.id), class: "flex items-center p-2 hover:bg-grey-lighter no-underline" do %>
+    <img src="<%= show.image_url %>" class="block flex-shrink h-24 mr-4" />
+    <h2 class="flex-grow text-grey-dark"><%= show.title %></h2>
+  <% end %>
+<% end %>

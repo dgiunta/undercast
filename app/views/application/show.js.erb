@@ -1,0 +1,5 @@
+(function() {
+  let loadMore = document.querySelector('.load-more-button')
+  loadMore.insertAdjacentHTML('afterend', `<%= render 'episode_list', show: @show, page: params[:page].to_i, per_page: params[:per_page].to_i %>`)
+  loadMore.remove();
+})()

@@ -1,0 +1,16 @@
+<div class="flex pb-10 mb-10 border-b-2">
+  <img src="<%= @show.image_url %>" class="flex-shrink h-64 mr-6">
+  <div>
+    <h1 class="mb-2"><%= link_to @show.title, @show.link, class: "no-underline text-grey-darker" %></h1>
+    <h3 class="mb-10"><%= @show.subtitle %><h3>
+  </div>
+</div>
+
+<%
+  page = params[:page].presence
+  per_page = params[:per_page].presence
+%>
+<%= render 'episode_list',
+      show: @show,
+      page: (page && page.to_i),
+      per_page: (per_page && per_page.to_i) %>

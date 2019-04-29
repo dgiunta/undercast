@@ -2,14 +2,25 @@
 <html>
   <head>
     <title>Undercast</title>
+    <meta name="turbolinks-cache-control" content="no-cache">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="text-grey-darkest">
+    <div class="container mx-auto mt-4" style="padding-bottom: 200px;">
+      <div class="mb-10 py-2 border-b-2 text-center">
+        <%= link_to 'Shows', shows_path, class: "no-underline uppercase text-grey hover:text-grey-dark" %>
+      </div>
+
+      <%= yield %>
+    </div>
+
+    <div class="border-t-2 p-5 fixed pin-b w-full bg-white" id="now-playing" data-turbolinks-permanent>
+      <%= render 'player' %>
+    </div>
   </body>
 </html>

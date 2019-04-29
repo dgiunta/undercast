@@ -1,0 +1,49 @@
+<% autoplay ||= false %>
+<% track ||= false %>
+
+<% if track.present? %>
+  <div
+    data-controller="player"
+    class="player flex"
+    data-player-autoplay=<%= autoplay.to_s %>
+    data-player-is-playing=false
+    data-action="keyup@document->player#togglePlay"
+  >
+    <img src="<%= track.image_url %>" class="flex-shrink h-32 mr-5">
+    <div class="flex-grow align-top">
+      <h3 class="mb-1"><%= track.title %></h3>
+      <h4 class="mb-2 text-sm"><%= track.subtitle %></h4>
+      <p><%= track.duration %></p>
+      <p class="mb-2 flex">
+        <a href="#"
+          class="play text-lg font-extra-black no-underline
+                 p-2 rounded leading-none inline-block h-0"
+          data-action="click->player#togglePlay"
+        >&rangle;</a>
+        <select
+          class="appearance-none pr-0 py-1 px-2"
+          data-target="player.playbackSpeed"
+          data-action="change->player#changeSpeed"
+        >
+          <option value="0.25">0.25x</option>
+          <option value="0.5">0.5x</option>
+          <option value="1.0">1x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2.0">2x</option>
+          <option value="2.5">2.5x</option>
+          <option value="3.0">3x</option>
+          <option value="3.5">3.5x</option>
+        </select>
+      </p>
+      <audio
+        data-target="player.audio"
+        class="w-full"
+        src="<%= track.audio_url %>"
+        controls
+        <%# 'autoplay' if autoplay %>
+        />
+    </div>
+  </div>
+<% else %>
+  <p class="player">...</p>
+<% end %>
