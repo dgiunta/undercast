@@ -1,7 +1,5 @@
 (function() {
-  let nowPlaying = document.querySelector("#now-playing");
-  let player = nowPlaying.querySelector(".player")
-  if (player) { player.remove(); }
-
-  nowPlaying.insertAdjacentHTML('beforeend', `<%= render 'player', track: @next_track, autoplay: true %>`);
+  document
+    .querySelector("#now-playing")
+    .innerHTML =  `<%= render 'player', track: @episode, autoplay: true %>`;
 })()

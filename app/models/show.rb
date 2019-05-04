@@ -2,18 +2,18 @@ class Show
   include ActiveModel::Model
 
   attr_accessor :title, :link, :author, :subtitle, :explicit, :category, :image_url
-  attr_accessor :episodes
+  attr_accessor :raw_data, :episodes
 
   def self.all
-    Rails.cache.fetch("all-shows", expires_in: 10.minutes) do
-      Dir['./test/fixtures/*.yml'].map do |file|
-        from_yml(File.basename(file, '.yml'))
-      end
+    @all ||= Dir['./test/fixtures/*.rss'].map do |file|
+      from_xml(File.read(file))
     end
   end
 
   def self.find_by_id(id)
-    all.detect {|show| show.id == id }
+    all.detect {|show| show.id == id }.tap do |show|
+      raise ActiveRecord::RecordNotFound if show.nil?
+    end
   end
 
   def self.find_by(title)
@@ -24,8 +24,13 @@ class Show
     from_feed(YAML.load(File.read("./test/fixtures/#{filename}.yml")))
   end
 
+  def self.from_xml(data)
+    from_feed(Hash.from_xml(data)['rss']['channel'])
+  end
+
   def self.from_feed(attrs)
     atts = {
+      raw_data: attrs,
       explicit: attrs["explicit"]&.downcase == "yes",
       link: [attrs["link"]].flatten.last,
       image_url: [attrs["image"]].flatten.last["href"]

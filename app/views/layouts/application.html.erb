@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Undercast</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="turbolinks-cache-control" content="no-cache">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,7 +12,7 @@
   </head>
 
   <body class="text-grey-darkest">
-    <div class="container mx-auto mt-4" style="padding-bottom: 200px;">
+    <div class="container mx-auto mt-4 pb-24 px-4">
       <div class="mb-10 py-2 border-b-2 text-center">
         <%= link_to 'Shows', shows_path, class: "no-underline uppercase text-grey hover:text-grey-dark" %>
       </div>
@@ -19,8 +20,8 @@
       <%= yield %>
     </div>
 
-    <div class="border-t-2 p-5 fixed pin-b w-full bg-white" id="now-playing" data-turbolinks-permanent>
-      <%= render 'player' %>
+    <div id="now-playing" data-turbolinks-permanent>
+      <%= content_for :now_playing %>
     </div>
   </body>
 </html>

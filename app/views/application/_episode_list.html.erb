@@ -7,8 +7,8 @@
 %>
 
 <% show.episodes[start_i...end_i].each do |episode| %>
-  <%= link_to play_show_episode_path(show: show.id, title: episode.id),
-              remote: true, data: {turbolinks_action: 'replace'},
+  <%= link_to play_show_episode_path(show_id: show.id, id: episode.id),
+              remote: false, data: {turbolinks_action: 'replace'},
               class: "play-episode p-2 hover:bg-grey-lighter no-underline flex items-center text-grey-darker" do %>
     <img src="<%= episode.image_url %>" class="block flex-shrink self-start h-24 mr-4" />
     <div>
@@ -20,7 +20,7 @@
 
 <% if show.episodes.length >= end_i + 1 %>
   <%= link_to 'Load More Episodes',
-        show_path(show.id, page: page + 1, per_page: per_page),
+        show_path(id: show.id, page: page + 1, per_page: per_page),
         remote: true,
         data: {
           turbolinks_action: 'replace',

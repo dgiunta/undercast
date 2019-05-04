@@ -1,0 +1,14 @@
+<div class="flex pb-10 mb-10 border-b-2">
+  <img src="<%= @episode.image_url %>" class="flex-shrink h-24 w-24 md:h-32 md:w-32 lg:w-64 lg:h-64 mr-6">
+  <div>
+    <h1 class="mb-2"><%= @episode.title %></h1>
+    <h3 class="mb-10"><%= @episode.subtitle %></h3>
+    <%= link_to 'play', play_show_episode_path(show_id: @episode.show.id, id: @episode.id),
+              remote: true, data: {turbolinks_action: 'replace'},
+              class: "play-episode p-2 hover:bg-grey-lighter no-underline flex items-center text-grey-darker" %>
+  </div>
+</div>
+
+<div>
+  <%= @episode.description.html_safe %>
+</div>
